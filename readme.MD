@@ -14,3 +14,19 @@ Esse projeto foi criado no decorrer do processo trainee da empresa junior {Struc
 -   Prisma
 -   APIs
 -   NextAuth
+
+## Instalar as dependências:
+
+```
+cd cocinaborcelle
+```
+
+```
+npm install
+```
+
+## Rodar servidor de desenvolvimento
+
+```
+npm run dev
+```

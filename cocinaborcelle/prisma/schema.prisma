@@ -9,3 +9,81 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Restaurante {
+  id            Int           @id @default(autoincrement())
+  nome          String
+  descricao     String
+  telefone      String?
+  cardapio      Cardapio?
+  usuarios      Usuario[]
+  redes_sociais RedeSocial[]
+  localizacao   Localizacao[]
+}
+
+model Cardapio {
+  id            Int         @id @default(autoincrement())
+  categorias    Categoria[]
+  restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
+  restauranteId Int         @unique
+}
+
+model Categoria {
+  id         Int      @id @default(autoincrement())
+  nome       String   @unique
+  cardapio   Cardapio @relation(fields: [cardapioId], references: [id])
+  cardapioId Int
+  comidas    Comida[]
+}
+
+model Comida {
+  id          Int       @id @default(autoincrement())
+  nome        String    @unique
+  preco_cents Int
+  descricao   String
+  compras     Compra[]
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaId Int
+}
+
+model Usuario {
+  id            Int         @id @default(autoincrement())
+  nome          String
+  email         String      @unique
+  senha         String?
+  carrinho      Carrinho?
+  restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
+  restauranteId Int
+}
+
+model Carrinho {
+  id          Int      @id @default(autoincrement())
+  valor_cents Int
+  compras     Compra[]
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId   Int      @unique
+}
+
+model Compra {
+  id         Int      @id @default(autoincrement())
+  quantidade Int
+  carrinho   Carrinho @relation(fields: [carrinhoId], references: [id])
+  carrinhoId Int
+  comida     Comida   @relation(fields: [comidaId], references: [id])
+  comidaId   Int
+}
+
+model RedeSocial {
+  id           Int           @id @default(autoincrement())
+  restaurantes Restaurante[]
+  instagram    String?
+  facebook     String?
+}
+
+model Localizacao {
+  id          Int           @id @default(autoincrement())
+  maps        String?
+  rua         String
+  cidade      String
+  Restaurante Restaurante[]
+}

@@ -11,14 +11,13 @@ datasource db {
 }
 
 model Restaurante {
-  id            Int           @id @default(autoincrement())
-  nome          String
-  descricao     String
-  telefone      String?
-  cardapio      Cardapio?
-  usuarios      Usuario[]
-  redes_sociais RedeSocial[]
-  localizacao   Localizacao[]
+  id          Int           @id @default(autoincrement())
+  nome        String
+  descricao   String
+  telefone    String?
+  cardapio    Cardapio?
+  rede_social RedeSocial?
+  localizacao Localizacao[]
 }
 
 model Cardapio {
@@ -46,22 +45,10 @@ model Comida {
   categoriaId Int
 }
 
-model Usuario {
-  id            Int         @id @default(autoincrement())
-  nome          String
-  email         String      @unique
-  senha         String?
-  carrinho      Carrinho?
-  restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
-  restauranteId Int
-}
-
 model Carrinho {
   id          Int      @id @default(autoincrement())
   valor_cents Int
   compras     Compra[]
-  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
-  usuarioId   Int      @unique
 }
 
 model Compra {
@@ -74,16 +61,18 @@ model Compra {
 }
 
 model RedeSocial {
-  id           Int           @id @default(autoincrement())
-  restaurantes Restaurante[]
-  instagram    String?
-  facebook     String?
+  id            Int         @id @default(autoincrement())
+  instagram     String?
+  facebook      String?
+  restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
+  restauranteId Int         @unique
 }
 
 model Localizacao {
-  id          Int           @id @default(autoincrement())
-  maps        String?
-  rua         String
-  cidade      String
-  Restaurante Restaurante[]
+  id            Int         @id @default(autoincrement())
+  maps          String?
+  rua           String
+  cidade        String
+  Restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
+  restauranteId Int         @unique
 }

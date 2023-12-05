@@ -19,14 +19,18 @@ Esse projeto foi criado no decorrer do processo trainee da empresa junior {Struc
 
 ```
 cd cocinaborcelle
-```
-
-```
 npm install
 ```
 
 ## Rodar servidor de desenvolvimento
 
 ```
+cd cocinaborcelle
 npm run dev
+```
+
+## Criar o banco de dados
+```
+cd cocinaborcelle
+npx prisma migrate dev --name init
 ```

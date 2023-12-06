@@ -9,6 +9,19 @@ async function main() {
 			nome: "Cocina Borcelle",
 			descricao: "A melhor comida italiana",
 			telefone: "0000-0000",
+			localizacao: {
+				create: {
+					rua: "Rua Coliseu",
+					cidade: "Roma 2",
+					maps: "https://maps.app.goo.gl/p4BxdRvuWxzNLoxQ8",
+				},
+			},
+			rede_social: {
+				create: {
+					instagram: "https://www.instagram.com/",
+					facebook: "https://www.facebook.com/",
+				},
+			},
 			cardapio: {
 				create: {
 					categorias: {

@@ -1,6 +1,4 @@
 .footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     background-color: #550F0F;
 }
@@ -30,7 +28,7 @@
 
 .footer_content .logo {width: 80px;}
 
-.footer_content .dates {text-align: center;}
+.footer_content .center {text-align: center;}
 
 @media (max-width: 950px) {
     .footer_content {

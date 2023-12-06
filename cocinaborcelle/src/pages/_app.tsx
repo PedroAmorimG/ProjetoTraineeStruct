@@ -13,12 +13,13 @@ const galindo = Galindo({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
+    
       <main className={galindo.className}>
         <Navbar />
-        <div className="content_wrapper">
-          <Component {...pageProps} /> 
+        <div className='content'>
+          <Component {...pageProps}/> 
         </div>
-          
+      
         <Footer />
       </main>
 

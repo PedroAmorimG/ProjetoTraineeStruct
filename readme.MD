@@ -31,6 +31,7 @@ npm install
 ## Rodar servidor de desenvolvimento
 
 ```
+cd cocinaborcelle
 npm run dev
 ```
 

@@ -1,3 +1,4 @@
+"use client";
 import styles from "@/styles/Login.module.css";
 
 import InputLogin from "@/components/InputLogin";
@@ -11,6 +12,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { signIn } from "next-auth/react";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -29,13 +31,20 @@ export default function Login() {
 	};
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-		console.log("entrou");
 		e.preventDefault();
 
 		let campos_vazios = Object.values(form).some((val) => val == "");
 		setIsempty(campos_vazios);
 
-		console.log(form);
+		if (!campos_vazios) {
+			console.log("teste");
+			const formdata = new FormData(e.currentTarget);
+			signIn("credentials", {
+				email: formdata.get("email"),
+				senha: formdata.get("senha"),
+				redirect: false,
+			});
+		}
 	};
 
 	return (

@@ -25,7 +25,7 @@ export default function handler(
 		const data = request.body;
 		const prisma = new PrismaClient();
 
-		createUser(data)
+		createUser(data.data)
 			.then(async () => {
 				await prisma.$disconnect();
 				response

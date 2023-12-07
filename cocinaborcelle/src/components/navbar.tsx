@@ -8,7 +8,6 @@ export default function Navbar() {
 
     const clique = () => {
         setHamburguer(!hamburguer)
-        console.log(hamburguer)
     }
     
     return (

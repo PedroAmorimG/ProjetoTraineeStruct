@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "@/styles/Cadastro.module.css";
 
 import InputLogin from "@/components/InputLogin";
@@ -9,13 +11,15 @@ import {
 	faEnvelope,
 	faSignature,
 } from "@fortawesome/free-solid-svg-icons";
-import { config, dom } from "@fortawesome/fontawesome-svg-core";
+import { dom } from "@fortawesome/fontawesome-svg-core";
 
 import Head from "next/head";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 const manrope = Manrope({ subsets: ["latin"] });
+
+import createUser from "@/pages/api/Cadastro/createCadastro";
 
 export default function Cadastro() {
 	const [form, setForm] = useState({
@@ -40,11 +44,18 @@ export default function Cadastro() {
 		let campos_vazios = Object.values(form).some((val) => val == "");
 		setIsempty(campos_vazios);
 
-		setValidpass(form["senha"].length < 8);
+		let senha_invalida = form["senha"].length < 8;
+		setValidpass(senha_invalida);
 
-		setIsequal(form["senha"] != form["confsenha"]);
+		let senhas_diferentes = form["senha"] != form["confsenha"];
+		setIsequal(senhas_diferentes);
 
-		console.log(form);
+		if (!campos_vazios && !senha_invalida && !senhas_diferentes) {
+			console.log(form);
+			createUser({
+				data: { nome: form.nome, senha: form.senha, email: form.email },
+			});
+		}
 	};
 
 	return (

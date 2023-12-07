@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
 
 				const senhaReconhecida = credentials.senha == usuario.senha;
 
-				if (senhaReconhecida) {
+				if (!senhaReconhecida) {
 					return null;
 				}
 
@@ -47,9 +47,6 @@ export const authOptions: NextAuthOptions = {
 			},
 		}),
 	],
-	pages: {
-		signIn: "/auth/signin",
-	},
 };
 
 export default NextAuth(authOptions);

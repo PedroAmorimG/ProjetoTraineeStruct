@@ -1,4 +1,5 @@
 "use client";
+
 import styles from "@/styles/Login.module.css";
 
 import InputLogin from "@/components/InputLogin";
@@ -13,6 +14,7 @@ import Head from "next/head";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -21,6 +23,8 @@ export default function Login() {
 		email: "",
 		senha: "",
 	});
+
+	const router = useRouter();
 
 	const [isempty, setIsempty] = useState(false);
 
@@ -37,13 +41,16 @@ export default function Login() {
 		setIsempty(campos_vazios);
 
 		if (!campos_vazios) {
-			console.log("teste");
 			const formdata = new FormData(e.currentTarget);
-			signIn("credentials", {
+			const response = signIn("credentials", {
 				email: formdata.get("email"),
 				senha: formdata.get("senha"),
 				redirect: false,
 			});
+
+			console.log({ response });
+
+			router.push("/");
 		}
 	};
 

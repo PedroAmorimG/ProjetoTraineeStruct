@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
 
 async function createUser(data: any) {
 	const prisma = new PrismaClient();

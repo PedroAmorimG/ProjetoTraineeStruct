@@ -19,7 +19,13 @@ import { ChangeEvent, FormEvent, useState } from "react";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
-import createUser from "@/pages/api/Cadastro/createCadastro";
+import axios from "axios";
+
+type Data = {
+	nome: string;
+	email: string;
+	senha: string;
+};
 
 export default function Cadastro() {
 	const [form, setForm] = useState({
@@ -51,11 +57,18 @@ export default function Cadastro() {
 		setIsequal(senhas_diferentes);
 
 		if (!campos_vazios && !senha_invalida && !senhas_diferentes) {
-			createUser({
-				nome: form.nome,
-				senha: form.senha,
-				email: form.email,
-			}).then((response) => console.log(response));
+			axios
+				.post("/api/Cadastrar", {
+					nome: form.nome,
+					senha: form.senha,
+					email: form.email,
+				})
+				.then((response) => {
+					console.log(response.data, response.status);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 	};
 

@@ -9,7 +9,9 @@ export default function index() {
 		return (
 			<>
 				<p>{session.user?.name}</p>
-				<button onClick={() => signOut()}>Sign out</button>
+				<button onClick={() => signOut({ redirect: false })}>
+					Sign out
+				</button>
 			</>
 		);
 	}

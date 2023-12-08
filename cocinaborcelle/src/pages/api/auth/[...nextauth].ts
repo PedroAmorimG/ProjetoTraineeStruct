@@ -27,6 +27,8 @@ export const authOptions: NextAuthOptions = {
 					},
 				});
 
+				prisma.$disconnect();
+
 				if (!usuario) {
 					return null;
 				}

@@ -80,13 +80,6 @@ async function main() {
 			},
 		},
 	});
-	await prisma.usuario.create({
-		data: {
-			nome: "teste",
-			email: "teste@gmail.com",
-			senha: "teste",
-		},
-	});
 }
 
 main()

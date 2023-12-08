@@ -17,10 +17,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
+import axios from "axios";
 
 const manrope = Manrope({ subsets: ["latin"] });
-
-import axios from "axios";
 
 export default function Cadastro() {
 	const [form, setForm] = useState({
@@ -41,7 +40,7 @@ export default function Cadastro() {
 		setForm({ ...aux_form });
 	};
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		let campos_vazios = Object.values(form).some((val) => val == "");
@@ -54,20 +53,19 @@ export default function Cadastro() {
 		setIsequal(senhas_diferentes);
 
 		if (!campos_vazios && !senha_invalida && !senhas_diferentes) {
-			axios
-				.post("/api/Cadastrar", {
-					nome: form.nome,
-					senha: form.senha,
-					email: form.email,
+			const formdata = new FormData(e.currentTarget);
+			await axios
+				.post("/api/cadastrar", {
+					username: formdata.get("nome"),
+					password: formdata.get("senha"),
+					email: formdata.get("email"),
 				})
 				.then((response) => {
-					console.log(response.data, response.status);
-					if (response.status == 200) {
-						router.push("Login");
-					}
+					console.log(response);
+					router.push("/");
 				})
-				.catch((error) => {
-					console.log(error);
+				.catch((e) => {
+					console.log(e);
 				});
 		}
 	};
@@ -83,6 +81,8 @@ export default function Cadastro() {
 			</Head>
 			<main style={manrope.style} className={styles.main}>
 				<form
+					method="post"
+					action="/api/cadastrar"
 					className={styles.form}
 					onSubmit={(e: FormEvent<HTMLFormElement>) => {
 						handleSubmit(e);

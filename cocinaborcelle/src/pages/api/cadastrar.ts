@@ -1,0 +1,52 @@
+import { auth } from "@/../auth/lucia";
+import { Prisma } from "@prisma/client";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+	return new Promise(async (resolve) => {
+		if (req.method != "POST") {
+			res.status(405);
+		}
+		const { username, password, email } = req.body as {
+			username: string;
+			password: string;
+			email: string;
+		};
+
+		try {
+			const user = await auth.createUser({
+				key: {
+					providerId: "username",
+					providerUserId: email.toLowerCase(),
+					password,
+				},
+				attributes: {
+					nome: username,
+					email: email,
+				},
+			});
+			const session = await auth.createSession({
+				userId: user.userId,
+				attributes: {},
+			});
+
+			const authRequest = auth.handleRequest({
+				req,
+				res,
+			});
+
+			authRequest.setSession(session);
+		} catch (e) {
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				if (e.code === "P2002") {
+					res.status(400).json({
+						error: "Email utilizado.",
+					});
+				}
+			}
+			res.status(500).json({ error: "Ocorreu um erro interno." });
+		}
+	});
+};
+
+export default handler;

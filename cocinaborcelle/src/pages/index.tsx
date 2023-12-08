@@ -1,11 +1,12 @@
 "use client";
-import Compind from "@/components/compind";
+
+import Link from "next/link";
 
 export default function index() {
 	return (
 		<>
-			<p>Hi</p>
-			<Compind></Compind>
+			<Link href="Login">Login</Link>
+			<Link href="Cadastro">Cadastro</Link>
 		</>
 	);
 }

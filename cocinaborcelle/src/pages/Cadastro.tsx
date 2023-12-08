@@ -51,10 +51,11 @@ export default function Cadastro() {
 		setIsequal(senhas_diferentes);
 
 		if (!campos_vazios && !senha_invalida && !senhas_diferentes) {
-			console.log(form);
 			createUser({
-				data: { nome: form.nome, senha: form.senha, email: form.email },
-			});
+				nome: form.nome,
+				senha: form.senha,
+				email: form.email,
+			}).then((response) => console.log(response));
 		}
 	};
 

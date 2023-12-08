@@ -5,6 +5,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method != "POST") {
 		res.status(405);
+		res.end();
+		return;
 	}
 	const { username, password, email } = req.body as {
 		username: string;
@@ -35,6 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		});
 
 		authRequest.setSession(session);
+		res.status(200).json("Conta criada com sucesso");
 	} catch (e) {
 		if (e instanceof Prisma.PrismaClientKnownRequestError) {
 			if (e.code === "P2002") {
@@ -42,8 +45,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 					error: "Email utilizado.",
 				});
 			}
+		} else {
+			res.status(500).json({ error: "Ocorreu um erro interno." });
 		}
-		res.status(500).json({ error: "Ocorreu um erro interno." });
 	}
 	res.end();
 };

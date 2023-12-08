@@ -62,7 +62,9 @@ export default function Cadastro() {
 				})
 				.then((response) => {
 					console.log(response);
-					router.push("/");
+					if (response.status == 200) {
+						router.push("/");
+					}
 				})
 				.catch((e) => {
 					console.log(e);

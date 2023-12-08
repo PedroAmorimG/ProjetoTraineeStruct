@@ -14,18 +14,13 @@ import {
 import { dom } from "@fortawesome/fontawesome-svg-core";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
 import axios from "axios";
-
-type Data = {
-	nome: string;
-	email: string;
-	senha: string;
-};
 
 export default function Cadastro() {
 	const [form, setForm] = useState({
@@ -37,6 +32,8 @@ export default function Cadastro() {
 	const [isempty, setIsempty] = useState(false);
 	const [isequal, setIsequal] = useState(false);
 	const [validpass, setValidpass] = useState(false);
+
+	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		let aux_form: any = form;
@@ -65,6 +62,9 @@ export default function Cadastro() {
 				})
 				.then((response) => {
 					console.log(response.data, response.status);
+					if (response.status == 200) {
+						router.push("Login");
+					}
 				})
 				.catch((error) => {
 					console.log(error);

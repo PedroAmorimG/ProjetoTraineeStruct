@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "@/styles/Login.module.css";
 
 import InputLogin from "@/components/InputLogin";
@@ -45,6 +43,8 @@ export default function Login() {
 		senha: "",
 	});
 
+	const [erroLogin, setErroLogin] = useState(false);
+
 	const router = useRouter();
 
 	const [isempty, setIsempty] = useState(false);
@@ -75,7 +75,7 @@ export default function Login() {
 					}
 				})
 				.catch((e) => {
-					console.log(e);
+					setErroLogin(true);
 				});
 		}
 	};
@@ -102,6 +102,9 @@ export default function Login() {
 						alt="Logo Cocina"
 					></img>
 					<h1 className={styles.title}>Fazer login</h1>
+					{erroLogin && (
+						<p className={styles.p}>Email ou senha nao coincidem</p>
+					)}
 					<InputLogin
 						type="email"
 						name="email"

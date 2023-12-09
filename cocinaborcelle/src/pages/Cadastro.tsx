@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "@/styles/Cadastro.module.css";
 
 import InputLogin from "@/components/InputLogin";
@@ -51,6 +49,7 @@ export default function Cadastro() {
 	const [isempty, setIsempty] = useState(false);
 	const [isequal, setIsequal] = useState(false);
 	const [validpass, setValidpass] = useState(false);
+	const [falhaCriacao, setFalhaCriacao] = useState(false);
 
 	const router = useRouter();
 
@@ -87,7 +86,7 @@ export default function Cadastro() {
 					}
 				})
 				.catch((e) => {
-					console.log(e);
+					setFalhaCriacao(true);
 				});
 		}
 	};
@@ -116,6 +115,12 @@ export default function Cadastro() {
 						alt="Logo Cocina"
 					/>
 					<h1 className={styles.title}>Cadastrar</h1>
+
+					{falhaCriacao && (
+						<p className={styles.p}>
+							Nome de usuario ou email ja cadastrados.
+						</p>
+					)}
 
 					<InputLogin
 						type="text"

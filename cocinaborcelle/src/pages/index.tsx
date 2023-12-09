@@ -6,6 +6,7 @@ import {
 import { auth } from "@/../auth/lucia";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export const getServerSideProps = async (
 	context: GetServerSidePropsContext
@@ -36,6 +37,8 @@ export default function index(
 	props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
 	const router = useRouter();
+	const [nome, setNome] = useState("");
+	const [senha, setSenha] = useState("");
 	return (
 		<>
 			<h1>{props.username}</h1>
@@ -53,6 +56,51 @@ export default function index(
 			>
 				LOG OUT!
 			</button>
+			<button
+				type="button"
+				onClick={async (e) => {
+					axios.post("api/excluirConta").then((response) => {
+						if (response.status == 200) {
+							router.push("/Login");
+						}
+					});
+				}}
+			>
+				Excluir conta
+			</button>
+
+			<form>
+				<input
+					name="nome"
+					placeholder="nome"
+					onChange={(e) => setNome(e.target.value)}
+				></input>
+				<input
+					name="senha"
+					placeholder="senha"
+					onChange={(e) => setSenha(e.target.value)}
+				></input>
+				<button
+					type="button"
+					onClick={async (e) => {
+						axios
+							.post("api/updateConta", {
+								password: senha,
+								username: nome,
+							})
+							.then((response) => {
+								if (response.status == 200) {
+									router.reload();
+								}
+							})
+							.catch((e) => {
+								console.log(e);
+							});
+					}}
+				>
+					Update conta
+				</button>
+			</form>
 		</>
 	);
 }

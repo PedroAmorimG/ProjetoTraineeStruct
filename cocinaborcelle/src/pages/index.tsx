@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	GetServerSidePropsContext,
 	GetServerSidePropsResult,
@@ -22,7 +20,7 @@ export const getServerSideProps = async (
 	const session = await authRequest.validate();
 	if (!session) {
 		return {
-			redirect: { destination: "/login", permanent: false },
+			redirect: { destination: "/Login", permanent: false },
 		};
 	}
 	return {

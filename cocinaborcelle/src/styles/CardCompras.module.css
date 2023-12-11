@@ -1,0 +1,67 @@
+
+.cardSection {
+    background-color: aliceblue;
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid #DBDBDB;
+    border-left: none;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .CardCompras {
+    margin-right: 20px;
+  }
+  
+  .CardCompras img {
+    margin: 10px;
+    width: 270px;
+    height: 188px;
+    border-radius: 8px;
+  }
+  
+  .informacoes {
+    display: flex;
+    flex-direction: column;
+    height: 188px;
+    justify-content: space-evenly;
+    padding-left: 20px;
+    align-items: start;
+    margin: 10px; 
+  }
+  
+  .priceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px;
+  }
+  
+  .container {
+    display: flex;
+    gap: 4px;
+  }
+  .counterButtons {
+    display: flex;
+    align-items: center;
+    background-color: red;
+    border-color: black;
+  }
+  
+  .buttonsContainer {
+    display: flex;
+    margin-left: auto; /* Alterado de margin-right para margin-left */
+    background-color: yellowgreen;
+    cursor: pointer;
+    border-color: black;
+  }
+  
+  
+  .carrinho,
+  .lixeira {
+    border: none;
+    background: none;
+    cursor: pointer;
+  
+  }
+  

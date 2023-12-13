@@ -54,9 +54,7 @@ export default function Cadastro() {
 	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		let aux_form: any = form;
-		aux_form[e.target.name] = e.target.value;
-		setForm({ ...aux_form });
+		setForm({ ...form, [e.target.name]: e.target.value });
 	};
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -72,15 +70,13 @@ export default function Cadastro() {
 		setIsequal(senhas_diferentes);
 
 		if (!campos_vazios && !senha_invalida && !senhas_diferentes) {
-			const formdata = new FormData(e.currentTarget);
 			await axios
 				.post("/api/cadastrar", {
-					username: formdata.get("nome"),
-					password: formdata.get("senha"),
-					email: formdata.get("email"),
+					nome: form.nome,
+					password: form.senha,
+					email: form.email,
 				})
 				.then((response) => {
-					console.log(response);
 					if (response.status == 200) {
 						router.push("/");
 					}
@@ -105,9 +101,7 @@ export default function Cadastro() {
 					method="post"
 					action="/api/cadastrar"
 					className={styles.form}
-					onSubmit={(e: FormEvent<HTMLFormElement>) => {
-						handleSubmit(e);
-					}}
+					onSubmit={handleSubmit}
 				>
 					<img
 						className={styles.logo}
@@ -126,7 +120,7 @@ export default function Cadastro() {
 						type="text"
 						placeholder="Nome"
 						name="nome"
-						onChange={(e) => handleChange(e)}
+						onChange={handleChange}
 					>
 						<FontAwesomeIcon
 							className={styles.icon}
@@ -144,7 +138,7 @@ export default function Cadastro() {
 						type="email"
 						placeholder="E-mail"
 						name="email"
-						onChange={(e) => handleChange(e)}
+						onChange={handleChange}
 					>
 						<FontAwesomeIcon
 							className={styles.icon}
@@ -162,7 +156,7 @@ export default function Cadastro() {
 						type="password"
 						placeholder="Senha"
 						name="senha"
-						onChange={(e) => handleChange(e)}
+						onChange={handleChange}
 					>
 						<FontAwesomeIcon
 							className={styles.icon}
@@ -185,7 +179,7 @@ export default function Cadastro() {
 						type="password"
 						placeholder="Confirme a senha"
 						name="confsenha"
-						onChange={(e) => handleChange(e)}
+						onChange={handleChange}
 					>
 						<FontAwesomeIcon
 							className={styles.icon}

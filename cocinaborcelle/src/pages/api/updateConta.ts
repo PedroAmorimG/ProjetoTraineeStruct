@@ -2,7 +2,7 @@ import { auth } from "@/../auth/lucia";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	if (req.method != "POST") {
+	if (req.method != "PATCH") {
 		res.status(405).json({ error: "Bad Request!" });
 		res.end();
 		return;
@@ -18,28 +18,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	}
 
 	const userId = session.user.userId;
-	const { username, password } = req.body as {
-		username?: string;
+	const { nome, password } = req.body as {
+		nome?: string;
 		password?: string;
 	};
 
 	try {
-		if (username) {
+		if (nome) {
 			await auth.updateUserAttributes(userId, {
-				nome: username,
+				nome,
 			});
 		}
 
 		if (password) {
 			await auth.updateKeyPassword(
-				"username",
-				session.user.email,
+				"email",
+				session.user.email.toLocaleLowerCase(),
 				password
 			);
 			await auth.invalidateAllUserSessions(userId);
 		}
 	} catch (e) {
-		console.log(e);
 		res.status(500).json({ error: e });
 		res.end();
 		return;

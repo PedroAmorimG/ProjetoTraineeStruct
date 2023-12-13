@@ -4,13 +4,11 @@ import { Manrope } from "next/font/google";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
-type Update = (e: React.ChangeEvent<HTMLInputElement>) => void;
-
 type InputLoginProps = React.PropsWithChildren<{
 	type: string;
 	name: string;
 	placeholder: string;
-	onChange: Update;
+	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }>;
 
 export default function InputLogin({

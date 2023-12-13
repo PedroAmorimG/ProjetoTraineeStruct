@@ -15,11 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	};
 
 	try {
-		const key = await auth.useKey(
-			"username",
-			email.toLowerCase(),
-			password
-		);
+		const key = await auth.useKey("email", email.toLowerCase(), password);
 		const session = await auth.createSession({
 			userId: key.userId,
 			attributes: {},

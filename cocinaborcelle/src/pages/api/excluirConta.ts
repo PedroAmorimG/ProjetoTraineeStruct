@@ -2,7 +2,7 @@ import { auth } from "@/../auth/lucia";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	if (req.method != "POST") {
+	if (req.method != "DELETE") {
 		res.status(405).json({ error: "Bad Request" });
 		res.end();
 		return;

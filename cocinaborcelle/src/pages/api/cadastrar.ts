@@ -1,6 +1,8 @@
 import { auth } from "@/../auth/lucia";
 import { Prisma } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
+import prisma_client from "../../../prisma";
+import { prisma } from "@lucia-auth/adapter-prisma";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method != "POST") {
@@ -8,8 +10,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.end();
 		return;
 	}
-	const { username, password, email } = req.body as {
-		username: string;
+	const { nome, password, email } = req.body as {
+		nome: string;
 		password: string;
 		email: string;
 	};
@@ -17,15 +19,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const user = await auth.createUser({
 			key: {
-				providerId: "username",
-				providerUserId: email.toLowerCase(),
+				providerId: "email",
+				providerUserId: email.toLocaleLowerCase(), //TODO verificar
 				password,
 			},
 			attributes: {
-				nome: username,
-				email: email,
+				nome,
+				email,
 			},
 		});
+
+		await prisma_client.carrinho.create({
+			data: { valor_cents: 0, usuarioId: user.userId },
+		});
+
 		const session = await auth.createSession({
 			userId: user.userId,
 			attributes: {},

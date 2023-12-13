@@ -52,7 +52,7 @@ export default function Login() {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		let aux_form: any = form;
 		aux_form[e.target.name] = e.target.value;
-		setForm({ ...aux_form });
+		setForm({ ...aux_form, [e.target.name]: e.target.value });
 	};
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -62,14 +62,12 @@ export default function Login() {
 		setIsempty(campos_vazios);
 
 		if (!campos_vazios) {
-			const formdata = new FormData(e.currentTarget);
 			axios
 				.post("/api/login", {
-					email: formdata.get("email"),
-					password: formdata.get("senha"),
+					email: form.email,
+					password: form.senha,
 				})
 				.then((response) => {
-					console.log(response);
 					if (response.status == 200) {
 						router.push("/");
 					}
@@ -90,12 +88,7 @@ export default function Login() {
 				<style>{dom.css()}</style>
 			</Head>
 			<main style={manrope.style} className={styles.main}>
-				<form
-					className={styles.form}
-					onSubmit={(e: FormEvent<HTMLFormElement>) => {
-						handleSubmit(e);
-					}}
-				>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<img
 						className={styles.logo}
 						src="/cocina-logo-cropped.png"
@@ -109,7 +102,7 @@ export default function Login() {
 						type="email"
 						name="email"
 						placeholder="E-mail"
-						onChange={(e) => handleChange(e)}
+						onChange={handleChange}
 					>
 						<FontAwesomeIcon
 							className={styles.icon}
@@ -126,7 +119,7 @@ export default function Login() {
 						type="password"
 						name="senha"
 						placeholder="Senha"
-						onChange={(e) => handleChange(e)}
+						onChange={handleChange}
 					>
 						<FontAwesomeIcon
 							className={styles.icon}

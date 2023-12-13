@@ -13,7 +13,7 @@ export const getServerSideProps = async (
 ): Promise<
 	GetServerSidePropsResult<{
 		userId: string;
-		username: string;
+		nome: string;
 		email: string;
 	}>
 > => {
@@ -27,7 +27,7 @@ export const getServerSideProps = async (
 	return {
 		props: {
 			userId: session.user.userId,
-			username: session.user.username,
+			nome: session.user.nome,
 			email: session.user.email,
 		},
 	};
@@ -41,17 +41,20 @@ export default function index(
 	const [senha, setSenha] = useState("");
 	return (
 		<>
-			<h1>{props.username}</h1>
+			<h1>{props.nome}</h1>
 			<p>ID: {props.userId}</p>
 			<p>Email: {props.email}</p>
 			<button
 				type="button"
 				onClick={async (e) => {
-					axios.post("api/logout").then((response) => {
-						if (response.status == 200) {
-							router.push("/Login");
-						}
-					});
+					axios
+						.post("api/logout")
+						.then((response) => {
+							if (response.status == 200) {
+								router.push("/Login");
+							}
+						})
+						.catch(alert);
 				}}
 			>
 				LOG OUT!
@@ -59,11 +62,14 @@ export default function index(
 			<button
 				type="button"
 				onClick={async (e) => {
-					axios.post("api/excluirConta").then((response) => {
-						if (response.status == 200) {
-							router.push("/Login");
-						}
-					});
+					axios
+						.delete("api/excluirConta")
+						.then((response) => {
+							if (response.status == 200) {
+								router.push("/Login");
+							}
+						})
+						.catch(alert);
 				}}
 			>
 				Excluir conta
@@ -84,18 +90,16 @@ export default function index(
 					type="button"
 					onClick={async (e) => {
 						axios
-							.post("api/updateConta", {
+							.patch("api/updateConta", {
 								password: senha,
-								username: nome,
+								nome: nome,
 							})
 							.then((response) => {
 								if (response.status == 200) {
 									router.reload();
 								}
 							})
-							.catch((e) => {
-								console.log(e);
-							});
+							.catch(alert);
 					}}
 				>
 					Update conta

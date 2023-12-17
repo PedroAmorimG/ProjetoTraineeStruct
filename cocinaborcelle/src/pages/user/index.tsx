@@ -1,49 +1,18 @@
-import {
-	GetServerSidePropsContext,
-	GetServerSidePropsResult,
-	InferGetServerSidePropsType,
-} from "next";
-import { auth } from "@/../auth/lucia";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useUser } from "../../../utils/userContext";
 
-export const getServerSideProps = async (
-	context: GetServerSidePropsContext
-): Promise<
-	GetServerSidePropsResult<{
-		userId: string;
-		nome: string;
-		email: string;
-	}>
-> => {
-	const authRequest = auth.handleRequest(context);
-	const session = await authRequest.validate();
-	if (!session) {
-		return {
-			redirect: { destination: "/login", permanent: false },
-		};
-	}
-	return {
-		props: {
-			userId: session.user.userId,
-			nome: session.user.nome,
-			email: session.user.email,
-		},
-	};
-};
-
-export default function index(
-	props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+export default function index() {
 	const router = useRouter();
 	const [nome, setNome] = useState("");
 	const [senha, setSenha] = useState("");
+	const user = useUser();
 	return (
 		<>
-			<h1>{props.nome}</h1>
-			<p>ID: {props.userId}</p>
-			<p>Email: {props.email}</p>
+			<h1>{user?.nome}</h1>
+			<p>ID: {user?.userId}</p>
+			<p>Email: {user?.email}</p>
 			<button
 				type="button"
 				onClick={async (e) => {

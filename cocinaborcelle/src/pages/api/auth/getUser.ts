@@ -7,7 +7,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		res.end();
 		return;
 	}
-	req.cookies.get;
+
 	const authRequest = auth.handleRequest({ req, res });
 	const session = await authRequest.validate();
 	if (session) {

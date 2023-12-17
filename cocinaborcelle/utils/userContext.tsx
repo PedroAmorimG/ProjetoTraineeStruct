@@ -10,10 +10,9 @@ import {
 } from "react";
 
 const UserContext = createContext<User | null>(null);
+const withoutAuthPages = ["/", "/login", "cadastro"];
 
 export function UserProvider({ children }: { children: ReactNode }) {
-	let authNeedPages = ["/user"];
-
 	const router = useRouter();
 	const [usuario, setUsuario] = useState<null | User>(null);
 
@@ -21,21 +20,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
 		axios
 			.get("/api/auth/getUser")
 			.then((response) => {
-				console.log(
-					router.pathname,
-					authNeedPages.includes(router.pathname)
-				);
-				if (authNeedPages.includes(router.pathname)) {
+				if (withoutAuthPages.includes(router.pathname)) {
 					if (response.data?.user) {
 						setUsuario(response.data.user);
 					} else {
-						router.replace("/login");
+						setUsuario(null);
 					}
 				} else {
 					if (response.data?.user) {
 						setUsuario(response.data.user);
 					} else {
-						setUsuario(null);
+						router.replace("/login");
 					}
 				}
 			})

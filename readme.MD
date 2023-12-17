@@ -15,11 +15,14 @@ Esse projeto foi criado no decorrer do processo trainee da empresa junior {Struc
 -   APIs
 -   NextAuth
 
-## Instalar as dependências:
+> [!IMPORTANT]
+> Os comandos abaixo devem ser utilizados dentro da pasta cocinaborcelle, caso contrário, ou nem rodar vai ou vai criar arquivo no lugar errado.
 
 ```
 cd cocinaborcelle
 ```
+
+## Instalar as dependências:
 
 ```
 npm install
@@ -28,5 +31,24 @@ npm install
 ## Rodar servidor de desenvolvimento
 
 ```
+cd cocinaborcelle
 npm run dev
+```
+
+## Criar o banco de dados
+
+```
+npx prisma db push
+```
+
+## Rodar a seed
+
+```
+npx prisma db seed
+```
+
+## Interação visual com o banco de dados
+
+```
+npx prisma studio
 ```

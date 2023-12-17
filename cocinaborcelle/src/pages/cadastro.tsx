@@ -15,31 +15,18 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import axios from "axios";
-import { auth } from "@/../auth/lucia";
+import { useUser } from "../../utils/userContext";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
-export const getServerSideProps = async (
-	context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<{}>> => {
-	const authRequest = auth.handleRequest(context);
-	const session = await authRequest.validate();
-	if (session) {
-		return {
-			redirect: {
-				destination: "/",
-				permanent: false,
-			},
-		};
-	}
-	return {
-		props: {},
-	};
-};
-
 export default function Cadastro() {
+	const user = useUser();
+	const router = useRouter();
+	if (user) {
+		router.push("/");
+	}
+
 	const [form, setForm] = useState({
 		nome: "",
 		email: "",
@@ -50,8 +37,6 @@ export default function Cadastro() {
 	const [isequal, setIsequal] = useState(false);
 	const [validpass, setValidpass] = useState(false);
 	const [falhaCriacao, setFalhaCriacao] = useState(false);
-
-	const router = useRouter();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setForm({ ...form, [e.target.name]: e.target.value });

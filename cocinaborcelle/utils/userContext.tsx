@@ -1,39 +1,49 @@
-import {
-	GetServerSidePropsContext,
-	GetServerSidePropsResult,
-	InferGetServerSidePropsType,
-} from "next";
-import { ReactNode, createContext, useContext } from "react";
-import { auth } from "../auth/lucia";
+import axios from "axios";
 import { User } from "lucia";
+import { useRouter } from "next/router";
+import {
+	ReactNode,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 
 const UserContext = createContext<User | null>(null);
 
-export const getServerSideProps = async (
-	context: GetServerSidePropsContext
-): Promise<
-	GetServerSidePropsResult<{
-		usuario: User;
-	}>
-> => {
-	const authRequest = auth.handleRequest(context);
-	const session = await authRequest.validate();
-	if (!session) {
-		return {
-			redirect: { destination: "/login", permanent: false },
-		};
-	}
-	return {
-		props: {
-			usuario: session.user,
-		},
-	};
-};
+export function UserProvider({ children }: { children: ReactNode }) {
+	let authNeedPages = ["/user"];
 
-function UserProvider(
-	{ children }: { children: ReactNode },
-	{ usuario }: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+	const router = useRouter();
+	const [usuario, setUsuario] = useState<null | User>(null);
+
+	useEffect(() => {
+		axios
+			.get("/api/auth/getUser")
+			.then((response) => {
+				console.log(
+					router.pathname,
+					authNeedPages.includes(router.pathname)
+				);
+				if (authNeedPages.includes(router.pathname)) {
+					if (response.data?.user) {
+						setUsuario(response.data.user);
+					} else {
+						router.replace("/login");
+					}
+				} else {
+					if (response.data?.user) {
+						setUsuario(response.data.user);
+					} else {
+						setUsuario(null);
+					}
+				}
+			})
+			.catch((e) => {
+				router.replace("/cadastro");
+			});
+	}, [router.pathname]);
+
 	return (
 		<UserContext.Provider value={usuario}>{children}</UserContext.Provider>
 	);
@@ -42,5 +52,3 @@ function UserProvider(
 export function useUser() {
 	return useContext(UserContext);
 }
-
-export default UserProvider;

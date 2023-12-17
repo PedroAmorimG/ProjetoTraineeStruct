@@ -1,3 +1,5 @@
+"useClient";
+
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -8,6 +10,7 @@ export default function index() {
 	const [nome, setNome] = useState("");
 	const [senha, setSenha] = useState("");
 	const user = useUser();
+
 	return (
 		<>
 			<h1>{user?.nome}</h1>

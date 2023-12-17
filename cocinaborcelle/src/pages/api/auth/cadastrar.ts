@@ -1,8 +1,7 @@
 import { auth } from "@/../auth/lucia";
 import { Prisma } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma_client from "../../../prisma";
-import { prisma } from "@lucia-auth/adapter-prisma";
+import prisma_client from "../../../../prisma";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method != "POST") {

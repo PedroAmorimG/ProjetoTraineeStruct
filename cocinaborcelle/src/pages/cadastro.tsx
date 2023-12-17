@@ -71,7 +71,7 @@ export default function Cadastro() {
 
 		if (!campos_vazios && !senha_invalida && !senhas_diferentes) {
 			await axios
-				.post("/api/cadastrar", {
+				.post("/api/auth/cadastrar", {
 					nome: form.nome,
 					password: form.senha,
 					email: form.email,
@@ -99,7 +99,7 @@ export default function Cadastro() {
 			<main style={manrope.style} className={styles.main}>
 				<form
 					method="post"
-					action="/api/cadastrar"
+					action="/api/auth/cadastrar"
 					className={styles.form}
 					onSubmit={handleSubmit}
 				>

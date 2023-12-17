@@ -63,7 +63,7 @@ export default function Login() {
 
 		if (!campos_vazios) {
 			axios
-				.post("/api/login", {
+				.post("/api/auth/login", {
 					email: form.email,
 					password: form.senha,
 				})
@@ -137,7 +137,7 @@ export default function Login() {
 					</Link>
 					<ButtonLogin type="submit">Entrar</ButtonLogin>
 					<hr className={styles.hr}></hr>
-					<Link className={styles.cadastro} href="Cadastro">
+					<Link className={styles.cadastro} href="cadastro">
 						<ButtonLogin type="button">Criar conta</ButtonLogin>
 					</Link>
 				</form>

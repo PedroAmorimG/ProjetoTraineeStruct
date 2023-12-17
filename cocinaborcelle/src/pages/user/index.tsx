@@ -21,7 +21,7 @@ export const getServerSideProps = async (
 	const session = await authRequest.validate();
 	if (!session) {
 		return {
-			redirect: { destination: "/Login", permanent: false },
+			redirect: { destination: "/login", permanent: false },
 		};
 	}
 	return {
@@ -48,10 +48,10 @@ export default function index(
 				type="button"
 				onClick={async (e) => {
 					axios
-						.post("api/logout")
+						.post("api/auth/logout")
 						.then((response) => {
 							if (response.status == 200) {
-								router.push("/Login");
+								router.push("/login");
 							}
 						})
 						.catch(alert);
@@ -63,10 +63,10 @@ export default function index(
 				type="button"
 				onClick={async (e) => {
 					axios
-						.delete("api/excluirConta")
+						.delete("api/user/excluirConta")
 						.then((response) => {
 							if (response.status == 200) {
-								router.push("/Login");
+								router.push("/login");
 							}
 						})
 						.catch(alert);
@@ -90,7 +90,7 @@ export default function index(
 					type="button"
 					onClick={async (e) => {
 						axios
-							.patch("api/updateConta", {
+							.patch("api/user/updateConta", {
 								password: senha,
 								nome: nome,
 							})

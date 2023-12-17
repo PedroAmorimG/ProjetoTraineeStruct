@@ -1,7 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-import { create } from "domain";
-
-const prisma = new PrismaClient();
+import prisma from "./index";
 
 async function main() {
 	await prisma.restaurante.create({

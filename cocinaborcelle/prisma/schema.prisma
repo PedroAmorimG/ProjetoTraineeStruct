@@ -49,6 +49,8 @@ model Carrinho {
   id          Int      @id @default(autoincrement())
   valor_cents Int
   compras     Compra[]
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  usuarioId   String   @unique
 }
 
 model Compra {
@@ -75,4 +77,32 @@ model Localizacao {
   cidade        String
   Restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
   restauranteId Int         @unique
+}
+
+model Usuario {
+  id           String    @id @unique
+  email        String    @unique
+  nome         String    @unique
+  carrinho     Carrinho?
+  auth_session Session[]
+  key          Key[]
+}
+
+model Session {
+  id             String  @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  user           Usuario @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  user            Usuario @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
 }

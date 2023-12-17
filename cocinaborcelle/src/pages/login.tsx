@@ -12,40 +12,25 @@ import Head from "next/head";
 import { Manrope } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { GetServerSidePropsContext, GetServerSidePropsResult } from "next";
 import axios from "axios";
 
-import { auth } from "@/../auth/lucia";
+import { useUser } from "../../utils/userContext";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
-export const getServerSideProps = async (
-	context: GetServerSidePropsContext
-): Promise<GetServerSidePropsResult<{}>> => {
-	const authRequest = auth.handleRequest(context);
-	const session = await authRequest.validate();
-	if (session) {
-		return {
-			redirect: {
-				destination: "/",
-				permanent: false,
-			},
-		};
-	}
-	return {
-		props: {},
-	};
-};
-
 export default function Login() {
+	const user = useUser();
+	const router = useRouter();
+	if (user) {
+		router.push("/");
+	}
+
 	const [form, setForm] = useState({
 		email: "",
 		senha: "",
 	});
 
 	const [erroLogin, setErroLogin] = useState(false);
-
-	const router = useRouter();
 
 	const [isempty, setIsempty] = useState(false);
 

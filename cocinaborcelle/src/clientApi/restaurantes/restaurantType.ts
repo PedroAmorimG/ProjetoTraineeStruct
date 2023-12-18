@@ -1,9 +1,8 @@
 import { Localizacao, RedeSocial, Restaurante } from "@prisma/client"
 
 type RestauranteType = {
-    restaurante: Restaurante,
     redesocial: RedeSocial,
-    localizacao: Localizacao,
-}
+    localizacao: Localizacao[]
+} & Restaurante
 
 export default RestauranteType

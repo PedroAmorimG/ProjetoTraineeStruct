@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
-import { PrismaClient } from "@prisma/client" 
+import prisma from "../../../../prisma/index"
 
-const prisma = new PrismaClient()
 
 async function showRestaurante(req: NextApiRequest, res: NextApiResponse) {
     if (req.query.slug === "index" && req.method === "GET") {

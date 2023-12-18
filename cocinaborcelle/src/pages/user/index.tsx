@@ -2,11 +2,20 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUser } from "../../../utils/userContext";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	GetServerSidePropsContext,
+} from "next";
 import getCarrinho from "@/clientApi/carrinho/getCarrinho";
+import { auth } from "../../../auth/lucia";
 
-export const getServerSideProps = (async () => {
-	let user = useUser();
+export const getServerSideProps = (async (
+	context: GetServerSidePropsContext
+) => {
+	const authRequest = auth.handleRequest(context);
+	const session = await authRequest.validate();
+	const user = session?.user;
 	if (user) {
 		const carrinho = await getCarrinho(user.userId);
 		return { props: { carrinho } };

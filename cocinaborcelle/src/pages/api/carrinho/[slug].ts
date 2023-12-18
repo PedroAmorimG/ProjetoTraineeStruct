@@ -3,7 +3,7 @@ import prisma from "@/../prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.query.slug === "show" && req.method === "GET") {
-		const { usuarioId } = req.body as {
+		const { usuarioId } = req.body.data as {
 			usuarioId: string;
 		};
 		try {
@@ -23,7 +23,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 					compras: compras,
 				},
 			});
-		} catch {
+		} catch (e) {
+			console.log(e);
 			res.status(500).json({ error: "Erro interno." });
 		}
 	} else {

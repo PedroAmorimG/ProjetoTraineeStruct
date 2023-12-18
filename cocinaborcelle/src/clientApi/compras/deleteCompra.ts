@@ -6,7 +6,7 @@ type CompraIdentifier = {
 };
 
 async function deleteCompra(compraIdentifier: CompraIdentifier): Promise<Compra> {
-    const { data } = await api.delete("/gender/delete", { data: compraIdentifier });
+    const { data } = await api.delete("/compra/delete", { data: compraIdentifier });
     return data;
 }
 

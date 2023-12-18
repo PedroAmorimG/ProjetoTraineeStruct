@@ -53,7 +53,9 @@ export default function Home() {
               <p>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur...”</p>
           </div>
         </div>
-  
+        <div>
+        getComidas()
+        </div>
       </section>
     </>
   )

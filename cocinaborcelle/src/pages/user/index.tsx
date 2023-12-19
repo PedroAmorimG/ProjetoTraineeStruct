@@ -13,9 +13,8 @@ import getUser from "../../../auth/getUser";
 export const getServerSideProps = (async (
 	context: GetServerSidePropsContext
 ) => {
-	const session = await getUser(context);
-	if (session) {
-		const user = session.user;
+	const user = await getUser(context);
+	if (user) {
 		const carrinhoCompleto = await getCarrinho(user.userId);
 		return { props: { carrinhoCompleto } };
 	} else {

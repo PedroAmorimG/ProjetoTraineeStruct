@@ -1,31 +1,26 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "@/../prisma";
+import prisma_client from "../../../../prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.query.slug === "show" && req.method === "GET") {
-		const { usuarioId } = req.body.data as {
-			usuarioId: string;
-		};
 		try {
-			const carrinho = await prisma.carrinho.findUnique({
+			const usuarioId = req.body;
+			const carrinho = await prisma_client.carrinho.findUnique({
 				where: {
 					usuarioId: usuarioId,
 				},
 			});
-			const compras = await prisma.compra.findMany({
+			const compras = await prisma_client.compra.findMany({
 				where: {
 					carrinhoId: carrinho?.id,
 				},
 			});
 			res.status(200).json({
-				data: {
-					carrinho: carrinho,
-					compras: compras,
-				},
+				carrinho: carrinho,
+				compras: compras,
 			});
 		} catch (e) {
-			console.log(e);
-			res.status(500).json({ error: "Erro interno." });
+			res.status(500).json({ error: "Erro interno" });
 		}
 	} else {
 		res.status(405).json({ error: "Bad Request" });

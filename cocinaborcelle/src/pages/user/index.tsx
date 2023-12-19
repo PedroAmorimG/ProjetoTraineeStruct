@@ -17,8 +17,8 @@ export const getServerSideProps = (async (
 	const session = await authRequest.validate();
 	const user = session?.user;
 	if (user) {
-		const carrinho = await getCarrinho(user.userId);
-		return { props: { carrinho } };
+		const carrinhoCompleto = await getCarrinho(user.userId);
+		return { props: { carrinhoCompleto } };
 	} else {
 		return { props: {} };
 	}
@@ -31,7 +31,6 @@ export default function index(
 	const [nome, setNome] = useState("");
 	const [senha, setSenha] = useState("");
 	const user = useUser();
-	console.log(props);
 
 	return (
 		<>
@@ -99,6 +98,7 @@ export default function index(
 					Update conta
 				</button>
 			</form>
+			<p>CarrinhoId: {props.carrinhoCompleto?.carrinho.id}</p>
 		</>
 	);
 }

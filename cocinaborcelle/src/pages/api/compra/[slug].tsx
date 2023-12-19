@@ -1,8 +1,5 @@
-import { PrismaClient } from "@prisma/client"
-import { NextApiResponse, NextApiRequest } from "next";
-// import prisma from "../../../../prisma"
-
-const prisma = new PrismaClient()
+import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "../../../../prisma";
 
 export async function handler (req : NextApiRequest, res : NextApiResponse){
     if (req.query.slug === "create" && req.method === "POST") {

@@ -8,15 +8,14 @@ import {
 	GetServerSidePropsContext,
 } from "next";
 import getCarrinho from "@/clientApi/carrinho/getCarrinho";
-import { auth } from "../../../auth/lucia";
+import getUser from "../../../auth/getUser";
 
 export const getServerSideProps = (async (
 	context: GetServerSidePropsContext
 ) => {
-	const authRequest = auth.handleRequest(context);
-	const session = await authRequest.validate();
-	const user = session?.user;
-	if (user) {
+	const session = await getUser(context);
+	if (session) {
+		const user = session.user;
 		const carrinhoCompleto = await getCarrinho(user.userId);
 		return { props: { carrinhoCompleto } };
 	} else {

@@ -47,3 +47,5 @@ export function UserProvider({ children }: { children: ReactNode }) {
 export function useUser() {
 	return useContext(UserContext);
 }
+
+export function setUser() {}

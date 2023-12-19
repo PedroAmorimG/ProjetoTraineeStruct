@@ -1,16 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma_client from "../../../../prisma";
+import prisma from "../../../../prisma";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.query.slug === "show" && req.method === "GET") {
 		try {
 			const usuarioId = req.body;
-			const carrinho = await prisma_client.carrinho.findUnique({
+			const carrinho = await prisma.carrinho.findUnique({
 				where: {
 					usuarioId: usuarioId,
 				},
 			});
-			const compras = await prisma_client.compra.findMany({
+			const compras = await prisma.compra.findMany({
 				where: {
 					carrinhoId: carrinho?.id,
 				},

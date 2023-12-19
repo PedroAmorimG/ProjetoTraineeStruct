@@ -9,16 +9,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 				where: {
 					usuarioId: usuarioId,
 				},
+				include: { compras: { include: { comida: true } } },
 			});
-			const compras = await prisma.compra.findMany({
-				where: {
-					carrinhoId: carrinho?.id,
-				},
-			});
-			res.status(200).json({
-				carrinho: carrinho,
-				compras: compras,
-			});
+
+			res.status(200).json({ carrinho });
 		} catch (e) {
 			res.status(500).json({ error: "Erro interno" });
 		}

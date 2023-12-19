@@ -1,67 +1,74 @@
-
 .cardSection {
-    background-color: aliceblue;
-    display: flex;
-    margin-bottom: 10px;
-    border: 1px solid #DBDBDB;
-    border-left: none;
-    width: 100%;
-    margin-bottom: 30px;
-  }
-  
-  .CardCompras {
-    margin-right: 20px;
-  }
-  
-  .CardCompras img {
-    margin: 10px;
-    width: 270px;
-    height: 188px;
-    border-radius: 8px;
-  }
-  
-  .informacoes {
-    display: flex;
-    flex-direction: column;
-    height: 188px;
-    justify-content: space-evenly;
-    padding-left: 20px;
-    align-items: start;
-    margin: 10px; 
-  }
-  
-  .priceContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 9px;
-  }
-  
-  .container {
-    display: flex;
-    gap: 4px;
-  }
-  .counterButtons {
-    display: flex;
-    align-items: center;
-    background-color: red;
-    border-color: black;
-  }
-  
-  .buttonsContainer {
-    display: flex;
-    margin-left: auto; /* Alterado de margin-right para margin-left */
-    background-color: yellowgreen;
-    cursor: pointer;
-    border-color: black;
-  }
-  
-  
-  .carrinho,
-  .lixeira {
-    border: none;
-    background: none;
-    cursor: pointer;
-  
-  }
-  
+  background-color: aliceblue;
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid #DBDBDB;
+  width: 50%;
+  margin-bottom: 30px;
+}
+
+.CardCompras {
+  margin-right: 20px;
+}
+
+.CardCompras img {
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+}
+
+.informacoes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 3px;
+  align-items: start;
+  gap: 5px;
+  font-size: 12px; 
+}
+
+.informacoes h4,
+.informacoes p,
+.informacoes span,
+.informacoes img {
+  margin-bottom: 0.4px; 
+}
+
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container {
+  display: flex;
+  gap: 4px;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.counterButtons {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  height: 22px;
+  width: 25px;
+  background-color: red;
+  border-color: black;
+  border-radius: 8px;
+}
+
+.buttonsContainer {
+  display: flex;
+  background-color: yellowgreen;
+  cursor: pointer;
+  border-color: black;
+  border-radius: 8px;
+  margin-left: auto;
+}
+
+

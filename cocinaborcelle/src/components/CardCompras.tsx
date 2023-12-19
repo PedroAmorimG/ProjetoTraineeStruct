@@ -1,14 +1,14 @@
-
 import { useState } from 'react';
 import styles from "@/styles/CardCompras.module.css";
+import Link from 'next/link';
+import {Comida, Compra} from "@prisma/client";
 
 type CardComprasProps = {
-    title?: string;
-    number: number;
+    compra: Compra & {comida: Comida}
 }
 
-export default function CardCompras({ title }: CardComprasProps) {
-    const [count, setCount] = useState(0);
+export default function CardCompras({ compra }: CardComprasProps) {
+    const [count, setCount] = useState(compra.quantidade)
 
     const handleIncrement = () => {
         setCount(count + 1);
@@ -23,26 +23,33 @@ export default function CardCompras({ title }: CardComprasProps) {
     return (
         <section className={styles.cardSection}>
             <div className={styles.CardCompras}>
-                <img src="/macarrao.jpg" alt="" />
+                <img src="/macarrao.jpg" alt="Macarrão" />
             </div>
 
             <div className={styles.informacoes}>
-                <h1>{title || 'Macarrão'}</h1>
-                <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec scelerisque diam. Donec vehicula ante risus, in tincidunt libero maximus suscipit. </p>
+                <h4>{'Macarrão'}</h4>
+                <p >Lorem ipsum dolor sit amet. Donec vehicula ante risus, in tincidunt libero maximus . </p>
                 <div className={styles.priceContainer}>
-                    <h2>Preço R$ 00,00</h2>
+                    <h5>Preço R$ 00,00</h5>
                     <div className={styles.container}>
                         <button onClick={handleDecrement}>-</button>
                         <span>{count}</span>
                         <button onClick={handleIncrement}>+</button>
-                        <button className={styles.counterButtons} >Excluir</button>
+                        <div className={styles.buttonContainer}>
+                            <button className={styles.counterButtons}>
+                                <img src="lixeira.png" height="23" />
+                            </button>
+                        </div>
                         <div className={styles.buttonsContainer}>
-                </div>
+                            <button className={styles.buttonsContainer}>
+                                <img src="carrinho.png" alt="Carrinho" height="16" />
+                            </button>
+                        </div>
+
                     </div>
                 </div>
-                <div className={styles.buttonsContainer}>
-                    <button className={styles.buttonsContainer}>Finalizar Pedido</button>
-                </div>
+                
+
             </div>
         </section>
     )

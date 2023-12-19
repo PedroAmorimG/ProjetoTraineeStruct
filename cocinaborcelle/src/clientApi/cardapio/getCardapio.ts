@@ -1,9 +1,9 @@
 import { Cardapio, Categoria, Comida } from "@prisma/client"
 import  api  from "../api"
 
-type CardapioFull = {
-    categoria: Categoria,
-} & Comida[]
+type CardapioFull = Cardapio & {
+    categorias: (Categoria & { comidas: Comida[] })[];
+};
 
 
 

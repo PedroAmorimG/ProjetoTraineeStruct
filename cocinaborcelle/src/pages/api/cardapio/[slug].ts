@@ -5,7 +5,8 @@ import prisma from "../../../../prisma/index"
 async function showCardapio(req: NextApiRequest, res: NextApiResponse) {
     if (req.query.slug === "index" && req.method === "GET") {
         try {
-            const cardapio = await prisma.cardapio.findMany( {
+            const cardapio = await prisma.cardapio.findUnique( {
+                where: {id: 1},
                 include: {
                     categorias: {
                         include: {

@@ -17,6 +17,7 @@ import { Manrope } from "next/font/google";
 import deleteCompra from "@/clientApi/compras/deleteCompra";
 import Head from "next/head";
 import clearCompras from "@/clientApi/compras/deleteCompras";
+import { useRouter } from "next/router";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -40,16 +41,26 @@ export const getServerSideProps = (async (
 export default function Carrinho(
 	props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
+	const router = useRouter();
+
 	async function handleDelete(id: number) {
-		await deleteCompra({ id }).catch((e) => {
-			alert("Houve um problema interno.");
-		});
+		await deleteCompra({ id })
+			.catch((e) => {
+				alert("Houve um problema interno.");
+			})
+			.then(() => {
+				router.reload();
+			});
 	}
 
 	async function handleCompra(id: number) {
-		await clearCompras(id).catch((e) => {
-			alert("Erro interno.");
-		});
+		await clearCompras(id)
+			.catch((e) => {
+				alert("Erro interno.");
+			})
+			.then(() => {
+				router.reload();
+			});
 	}
 
 	if (props.carrinho.compras.length) {

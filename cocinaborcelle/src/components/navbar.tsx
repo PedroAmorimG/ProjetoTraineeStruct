@@ -23,20 +23,40 @@ export default function Navbar() {
 					<span className={style.bar}></span>
 				</a>
 
-        <div className={`${style.navbar_links} ${hamburguer ? style.active : ""}`} >
-          <ul>
-            <li><Link href="">CARDÁPIO</Link></li>
-            <li><Link href="">UNIDADES</Link></li>
-            <li><Link href="/"><img className={style.logo} src="/logo.png" alt="" /></Link></li>
-            <li><Link href="">DELIVERY</Link></li>
-            <li><Link href="contato">CONTATO</Link></li>
+				<div
+					className={`${style.navbar_links} ${
+						hamburguer ? style.active : ""
+					}`}
+				>
+					<ul>
+						<li>
+							<Link href="cardapio">CARDÁPIO</Link>
+						</li>
+						<li>
+							<Link href="">UNIDADES</Link>
+						</li>
+						<li>
+							<Link href="/">
+								<img
+									className={style.logo}
+									src="/logo.png"
+									alt=""
+								/>
+							</Link>
+						</li>
+						<li>
+							<Link href="">DELIVERY</Link>
+						</li>
+						<li>
+							<Link href="contato">CONTATO</Link>
+						</li>
 						<li>
 							<Link href="user">
 								<img src="/userwhite.png" alt="" />
 							</Link>
 						</li>
 						<li>
-							<Link href="">
+							<Link href="carrinho">
 								<img src="/carrinhowhite.png" alt="" />
 							</Link>{" "}
 						</li>

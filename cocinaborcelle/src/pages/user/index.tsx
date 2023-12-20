@@ -18,7 +18,12 @@ export const getServerSideProps = (async (
 		const carrinhoCompleto = await getCarrinho(user.userId);
 		return { props: { carrinhoCompleto } };
 	} else {
-		return { props: {} };
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
 	}
 }) satisfies GetServerSideProps;
 

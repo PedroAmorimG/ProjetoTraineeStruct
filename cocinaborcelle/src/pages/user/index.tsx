@@ -2,10 +2,7 @@ import { useState } from "react";
 import { useUser } from "../../../utils/userContext";
 import UserEditForm from "@/components/userEditForm";
 
-
-export default function index(
-	props: InferGetServerSidePropsType<typeof getServerSideProps>
-) {
+export default function index() {
 	const [nome, setNome] = useState("");
 	const [senha, setSenha] = useState("");
 	const user = useUser();

@@ -1,13 +1,11 @@
-"useClient";
-
-import axios from "axios";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUser } from "../../../utils/userContext";
 import UserEditForm from "@/components/userEditForm";
 
-export default function index() {
-	const router = useRouter();
+
+export default function index(
+	props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
 	const [nome, setNome] = useState("");
 	const [senha, setSenha] = useState("");
 	const user = useUser();
@@ -15,9 +13,8 @@ export default function index() {
 	return (
 		<>
 			<h1>{user?.nome}</h1>
-			<p>ID: {user?.userId}</p>
 			<p>Email: {user?.email}</p>
-			<UserEditForm></UserEditForm>
+			<UserEditForm />
 		</>
 	);
 }

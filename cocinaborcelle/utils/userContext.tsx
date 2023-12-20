@@ -10,6 +10,7 @@ import {
 } from "react";
 
 const UserContext = createContext<User | null>(null);
+
 const withoutAuthPages = ["/", "/login", "/cadastro","/contato"];
 
 export function UserProvider({ children }: { children: ReactNode }) {

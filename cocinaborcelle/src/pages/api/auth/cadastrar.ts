@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 		const user = await auth.createUser({
 			key: {
 				providerId: "email",
-				providerUserId: email.toLocaleLowerCase(), //TODO verificar
+				providerUserId: email.toLocaleLowerCase(),
 				password,
 			},
 			attributes: {

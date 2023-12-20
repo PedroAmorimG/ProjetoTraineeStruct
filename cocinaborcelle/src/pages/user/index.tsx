@@ -1,11 +1,35 @@
-"useClient";
-
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useUser } from "../../../utils/userContext";
+import {
+	GetServerSideProps,
+	InferGetServerSidePropsType,
+	GetServerSidePropsContext,
+} from "next";
+import getCarrinho from "@/clientApi/carrinho/getCarrinho";
+import getUser from "../../../auth/getUser";
 
-export default function index() {
+export const getServerSideProps = (async (
+	context: GetServerSidePropsContext
+) => {
+	const user = await getUser(context);
+	if (user) {
+		const carrinhoCompleto = await getCarrinho(user.userId);
+		return { props: { carrinhoCompleto } };
+	} else {
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
+}) satisfies GetServerSideProps;
+
+export default function index(
+	props: InferGetServerSidePropsType<typeof getServerSideProps>
+) {
 	const router = useRouter();
 	const [nome, setNome] = useState("");
 	const [senha, setSenha] = useState("");
@@ -77,6 +101,7 @@ export default function index() {
 					Update conta
 				</button>
 			</form>
+			<p>CarrinhoId: {props.carrinhoCompleto?.carrinho.id}</p>
 		</>
 	);
 }

@@ -14,7 +14,7 @@ export default function Navbar() {
         <>
             
             <nav className={`${style.navbar} ${hamburguer ? style.active : ""}`} >
-                <span className={style.toggle_title}><h2>COCINA BORCELLE</h2></span>
+                <span className={style.toggle_title}><h2><Link href="/">COCINA BORCELLE</Link></h2></span>
                 <a href="#" onClick={clique} className={style.toggle_button}>
                     <span className={style.bar}></span>
                     <span className={style.bar}></span>
@@ -24,7 +24,7 @@ export default function Navbar() {
                 <div className={`${style.navbar_links} ${hamburguer ? style.active : ""}`} >
                     <ul>
                         <li><Link href="">CARDÁPIO</Link></li>
-                        <li><Link href="">UNIDADES</Link></li>
+                        <li><Link href="/unidades">UNIDADES</Link></li>
                         <li><Link href="/"><img className={style.logo} src="/logo.png" alt="" /></Link></li>
                         <li><Link href="">DELIVERY</Link></li>
                         <li><Link href="">CONTATO</Link></li>

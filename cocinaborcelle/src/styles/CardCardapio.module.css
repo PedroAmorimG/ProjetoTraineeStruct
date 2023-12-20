@@ -1,0 +1,34 @@
+.grupo {
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 16px 0;
+}
+
+.div_sup {
+	display: flex;
+	flex-direction: row;
+	margin-left: 32px;
+}
+
+.div_inf {
+	display: flex;
+	flex-direction: row;
+	margin-left: 48px;
+}
+
+.price {
+	position: absolute;
+	right: 50px;
+	font-size: 24px;
+}
+
+.name {
+	font-size: 24px;
+}
+
+.desc {
+	margin-top: 16px;
+	font-size: 1rem;
+}

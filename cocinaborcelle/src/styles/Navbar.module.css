@@ -52,6 +52,11 @@
     display: none;
 }
 
+.toggle_title a {
+    color: white;
+    text-decoration: none;
+}
+
 .toggle_button {
     position: absolute;
     top: 2rem;

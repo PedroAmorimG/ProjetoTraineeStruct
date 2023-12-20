@@ -27,7 +27,7 @@ export default function Navbar() {
                         <li><Link href="">UNIDADES</Link></li>
                         <li><Link href="/"><img className={style.logo} src="/logo.png" alt="" /></Link></li>
                         <li><Link href="">DELIVERY</Link></li>
-                        <li><Link href="">CONTATO</Link></li>
+                        <li><Link href="contato">CONTATO</Link></li>
 
                         <li><Link href='user'><img src="/userwhite.png" alt="" /></Link></li>
                         <li ><Link href=''><img src="/carrinhowhite.png" alt="" /></Link>  </li>    

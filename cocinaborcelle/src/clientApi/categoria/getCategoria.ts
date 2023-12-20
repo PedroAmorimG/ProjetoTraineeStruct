@@ -6,5 +6,5 @@ async function getCategorias(): Promise<Categoria[]> {
 
     return data;
 }
-
+//
 export default getCategorias;

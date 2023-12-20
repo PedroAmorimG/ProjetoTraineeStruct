@@ -5,6 +5,7 @@ type NewCategoria = {
     nome: string;
 };
 
+//
 async function createCategoria(newCategoria: NewCategoria): Promise<Categoria> {
     try {
         const { data } = await api.post("/categoria/create", newCategoria);

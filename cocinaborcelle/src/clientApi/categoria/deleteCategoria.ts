@@ -4,7 +4,7 @@ import api from "../api";
 type CategoriaIdentifier = {
     cardapioId: number;
 };
-
+//
 async function deleteCategoria(categoriaIdentifier: CategoriaIdentifier): Promise<Categoria> {
     try {
         const { data } = await api.delete(`/categoria/delete/${categoriaIdentifier.cardapioId}`);

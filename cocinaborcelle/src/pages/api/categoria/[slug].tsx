@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../../prisma";
-
+//
 async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.query.slug === "index" && req.method === "GET") {
         try {

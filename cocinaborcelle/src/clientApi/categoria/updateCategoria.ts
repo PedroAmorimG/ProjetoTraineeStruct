@@ -15,5 +15,5 @@ async function updateCategoria(categoriaData: CategoriaIdentifier & CategoriaNew
         throw new Error("Não foi possível fazer o Update dessa Categoria");
     }
 }
-
+//
 export default updateCategoria;

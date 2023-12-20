@@ -1,4 +1,6 @@
-import getCarrinho from "@/clientApi/carrinho/getCarrinho";
+import getCarrinho, {
+	CarrinhoCompleto,
+} from "@/clientApi/carrinho/getCarrinho";
 import style from "@/styles/Carrinho.module.css";
 import {
 	GetServerSideProps,
@@ -17,6 +19,7 @@ import { Manrope } from "next/font/google";
 import deleteCompra from "@/clientApi/compras/deleteCompra";
 import Head from "next/head";
 import clearCompras from "@/clientApi/compras/deleteCompras";
+import { useEffect, useState } from "react";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -25,8 +28,7 @@ export const getServerSideProps = (async (
 ) => {
 	const user = await getUser(context);
 	if (user) {
-		const carrinho = await getCarrinho(user?.userId);
-		return { props: carrinho };
+		return { props: user };
 	}
 	return {
 		redirect: {
@@ -40,67 +42,76 @@ export default function Carrinho(
 	props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) {
 	async function handleDelete(id: number) {
-		await deleteCompra({ id }).catch((e) => {
-			alert("Houve um problema interno.");
-		});
+		deleteCompra({ id })
+			.then(() => getCarrinho(props.userId))
+			.then((carrinho) => setCarrinho(carrinho))
+			.catch((e) => alert("Ocorreu um erro."));
 	}
 
 	async function handleCompra(id: number) {
-		await clearCompras(id).catch((e) => {
-			alert("Erro interno.");
-		});
+		clearCompras(id)
+			.then(() => getCarrinho(props.userId))
+			.then((carrinho) => setCarrinho(carrinho))
+			.catch((e) => {
+				alert("Erro interno.");
+			});
 	}
 
-	if (props.carrinho.compras.length) {
-		return (
-			<>
-				<Head>
-					<meta
-						name="viewport"
-						content="width=device-width, initial-scale=1"
-					/>
-					<style>{dom.css()}</style>
-				</Head>
-				<div className={style.pag} style={manrope.style}>
-					<h3 className={style.h3}>Carrinho</h3>
-					{props.carrinho.compras.map((compra) => {
-						return (
-							<div className={style.item}>
-								<p className={style.quantidade}>
-									Quantidade: {compra.quantidade}{" "}
-								</p>
-								<CardCardapio
-									name={compra.comida.nome}
-									price={compra.comida.preco_cents}
-									desc={compra.comida.descricao}
+	const [carrinho, setCarrinho] = useState<CarrinhoCompleto>();
+
+	useEffect(() => {
+		getCarrinho(props.userId).then((carrinho) => {
+			console.log(carrinho);
+		});
+	}, []);
+
+	return carrinho?.carrinho?.compras.length ? (
+		<>
+			<Head>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1"
+				/>
+				<style>{dom.css()}</style>
+			</Head>
+			<div className={style.pag} style={manrope.style}>
+				<h3 className={style.h3}>Carrinho</h3>
+				{carrinho.carrinho.compras.map((compra) => {
+					return (
+						<div className={style.item}>
+							<p className={style.quantidade}>
+								Quantidade: {compra.quantidade}{" "}
+							</p>
+							<CardCardapio
+								name={compra.comida.nome}
+								price={compra.comida.preco_cents}
+								desc={compra.comida.descricao}
+							>
+								<button
+									className={style.delete}
+									onClick={(e) => handleDelete(compra.id)}
 								>
-									<button
-										className={style.delete}
-										onClick={(e) => handleDelete(compra.id)}
-									>
-										<FontAwesomeIcon
-											className={style.icon}
-											icon={faTrash}
-											size="xl"
-										/>
-									</button>
-								</CardCardapio>
-							</div>
-						);
-					})}
-					<div className={style.divCompra}>
-						<button
-							className={style.comprar}
-							onClick={(e) => handleCompra(props.carrinho.id)}
-						>
-							Compre agora!
-						</button>
-					</div>
+									<FontAwesomeIcon
+										className={style.icon}
+										icon={faTrash}
+										size="xl"
+									/>
+								</button>
+							</CardCardapio>
+						</div>
+					);
+				})}
+				<div className={style.divCompra}>
+					<button
+						className={style.comprar}
+						onClick={(e) => handleCompra(carrinho.carrinho.id)}
+					>
+						Compre agora!
+					</button>
 				</div>
-			</>
-		);
-	}
-	return (
+			</div>
+		</>
+	) : (
 		<div className={style.pag} style={manrope.style}>
 			<h3 className={style.h3}>
 				O seu carrinho da Cocina Borcelle está vazio.

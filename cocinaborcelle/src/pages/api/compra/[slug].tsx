@@ -40,7 +40,7 @@ export default async function handler(
 					carrinhoId: carrinhoId,
 				},
 			});
-			res.status(200);
+			res.status(200).json({ error: "Operacao feita com sucesso" });
 		} catch (e) {
 			res.status(500).json({ error: "Erro interno" });
 		}

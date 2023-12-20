@@ -1,16 +1,20 @@
-import { Cardapio, Categoria, Comida } from "@prisma/client"
-import  api  from "../api"
+import { Prisma } from "@prisma/client";
+import api from "../api";
 
-type CardapioFull = Cardapio & {
-    categorias: (Categoria & { comidas: Comida[] })[];
+type CardapioFull = {
+	cardapio: Prisma.CardapioGetPayload<{
+		include: {
+			categorias: {
+				include: { comidas: true };
+			};
+		};
+	}>;
 };
 
+async function getCardapio(): Promise<CardapioFull> {
+	const { data } = await api.get("/cardapio/index");
 
-
-async function getCardapio(): Promise<CardapioFull>{
-    const {data} = await api.get("/cardapio/index")
-    
-    return data
+	return data;
 }
 
-export default getCardapio
+export default getCardapio;

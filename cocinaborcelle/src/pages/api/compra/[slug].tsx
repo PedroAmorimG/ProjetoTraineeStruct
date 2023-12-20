@@ -13,9 +13,7 @@ export default async function handler(
 		} catch (e) {
 			res.status(400).json({ error: "não foi possível criar" });
 		}
-	}
-
-	if (req.query.slug === "update" && req.method === "PATCH") {
+	} else if (req.query.slug === "update" && req.method === "PATCH") {
 		try {
 			const { id, ...compraData } = req.body;
 			const compra = await prisma.compra.update({
@@ -26,9 +24,7 @@ export default async function handler(
 		} catch (e) {
 			res.status(400).json({ error: "não foi possível atualizar" });
 		}
-	}
-
-	if (req.query.slug === "delete" && req.method === "DELETE") {
+	} else if (req.query.slug === "delete" && req.method === "DELETE") {
 		try {
 			const where = req.body;
 			const compra = await prisma.compra.delete({ where });
@@ -36,7 +32,19 @@ export default async function handler(
 		} catch (e) {
 			res.status(400).json({ error: "não foi possível deletar" });
 		}
+	} else if (req.query.slug === "clear" && req.method === "DELETE") {
+		try {
+			const carrinhoId = req.body.data;
+			await prisma.compra.deleteMany({
+				where: {
+					carrinhoId: carrinhoId,
+				},
+			});
+			res.status(200).json({ error: "Operacao feita com sucesso" });
+		} catch (e) {
+			res.status(500).json({ error: "Erro interno" });
+		}
+	} else {
+		res.status(400).json({ error: "método da API não conhecido" });
 	}
-
-	res.status(400).json({ error: "método da API não conhecido" });
 }

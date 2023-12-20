@@ -2,12 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("/bannerHome.jpg");
+    background-image: url("/pasta_background.webp");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
     width: 100vw;
-    height: 600px;
+    height: 700px;
 }
 
 .banner h2 {
@@ -60,48 +60,74 @@
     background-size: cover;
 }
 
-.feedback {
-    width: 100%;
-    height: 60vh;
-    padding: 10px;
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.feedbackTitle {
+    display: flex;
     text-align: center;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
-
-.feedback h2 {
-    font-size: 32px;
-    margin: 2rem;
+  
+  .feedbackContent {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
 }
-
-.feedback_card {
-    width: 300px;
+  
+.feedbackCardContainer {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+  
+.feedbackCard {
+    flex: 0 0 100%;
+    max-width: 300px;
     height: 300px;
     background-color: #550F0F;
     color: white;
     padding: 20px;
+    box-sizing: border-box;
+    display: none;
 }
-
-.feedback_card h3 {font-size: 32px;}
-
-.feedback_card p {margin-top: 20%;}
-
+  
+.feedbackCard.active {
+    display: block;
+}
+  
+.feedbackCard h3 {
+    font-size: 32px;
+}
+  
+.feedbackCard p {
+    margin-top: 20%;
+}
+  
 @media (max-width: 1150px) {
-    .info,.feedback_content,.imgs_options {
-        flex-direction: column;
+    .info, .feedbackContent, .imgsOptions {
+      flex-direction: column;
     }
-
-    .info img, .info_content {
-        width: 100%;
+  
+    .info img,
+    .infoContent,
+    .feedbackCardContainer {
+      width: 100%;
     }
-
+  
     .feedback {
-        margin-bottom: 100vh;
+      margin-bottom: 100vh;
     }
-
-    .feedback_content {
-        align-items: center;
+  
+    .feedbackContent {
+      align-items: center;
     }
-
-    .feedback_card {
-        margin-bottom: 1rem;
+  
+    .feedbackCard {
+      margin-bottom: 1rem;
     }
-}
+  }
+  

@@ -1,4 +1,6 @@
 import style from '@/styles/Home.module.css'
+import Slides from "@/pages/slides"
+import React from 'react'
 
 export default function Home() {
   return (
@@ -33,28 +35,8 @@ export default function Home() {
           <img src="/pizza2.png" alt="" />
           <img src="/macarrao.png" alt="" />
       </section>
-
-      <section className={style.feedback}>
-        <h2>SUGESTÃO DE CLIENTES</h2>
-        <div className={style.feedback_content}>
-          
-          <div className={style.feedback_card}>
-              <h3>CLIENTE</h3>
-              <p>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur...”</p>
-          </div>
-
-          <div className={style.feedback_card}>
-              <h3>CLIENTE</h3>
-              <p>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur...”</p>
-          </div>
-
-          <div className={style.feedback_card}>
-              <h3>CLIENTE</h3>
-              <p>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur...”</p>
-          </div>
-        </div>
-  
-      </section>
+      
+      <Slides/>
     </>
   )
 }

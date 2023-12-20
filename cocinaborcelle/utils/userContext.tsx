@@ -11,7 +11,7 @@ import {
 
 const UserContext = createContext<User | null>(null);
 
-const withoutAuthPages = ["/", "/login", "/cadastro","/contato"];
+const withoutAuthPages = ["/", "/login", "/cadastro", "/contato", "/unidades"];
 
 export function UserProvider({ children }: { children: ReactNode }) {
 	const router = useRouter();
